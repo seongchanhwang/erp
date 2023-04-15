@@ -1,0 +1,13 @@
+
+<!-- 로그인 시 헤더 -->
+<header th:fragment="logoutHeader">
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">로그아웃</button>
+  </form>
+</header>
+
+<header th:fragment="loginHeader">
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">로그인</button>
+  </form>
+</header>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JOIN FORM</title>
+    <link th:href="@{/css/errors.css}"  href="../../static/css/errors.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<h1 th:text="|JOIN ME!|">회원가입 폼</h1>
+<section>
+    <!--회원가입 폼-->
+    <form th:action th:object="${joinForm}" method="post">
+        <table>
+            <tr>
+                <th><label for="memberId">ID</label></th>
+                <td>
+                    <input id="memberId" type="text" th:field="*{memberId}" placeholder="E-mail @포함 ">
+                    <a href="javascript:sendAuthMail()">인증 발송</a>
+                    <div th:errors="*{memberId}" th:errorclass="field-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="password">PW</label></th>
+                <td>
+                    <input id="password" type="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요.">
+                    <div th:errors="*{password}" th:errorclass="field-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="name">NAME</label></th>
+                <td>
+                    <input id="name" type="text" th:field="*{name}">
+                    <div th:errors="*{name}" th:errorclass="field-error"></div>
+                </td>
+            </tr>
+        </table>
+        <div id="btn-box">
+            <button class="join-btn" type="submit"> JOIN</button>
+        </div>
+
+        <!--글로벌 에러-->
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">
+                글로벌 에러
+            </p>
+        </div>
+    </form>
+</section>
+</body>
+<script type="text/javascript">
+
+
+    /**
+     * 인증 메일 발송
+     */
+    function sendAuthMail(){
+        const memberId = document.getElementById('memberId').value;
+        const url = `/email/${memberId}`;
+
+        /*유효성 검사*/
+        console.log("memberId=",memberId);
+        if(memberId.length === 0 ){
+            Swal.fire("Oops, ID를 입력하지 않았네요!","Email id를 입력해 주세요 :)","warning");
+            return ;
+        }
+
+        Swal.fire({
+            title : '메일을 전송중입니다!'
+            , text :'잠시만 기다려주세요 :-) '
+            , timer : 3000
+            , timerProgressBar : true
+            , showConfirmButton : false
+            , allowOutsideClick : false
+            , didOpen : () => {  // 팝업이 표시된 후 이벤트 실행
+                // 로딩 바 표시
+                Swal.showLoading()
+                fetch(url,{
+                    method : "POST"
+                }).then(response => {
+                    if(!response.ok) {
+                        throw new Error(response.statusText)
+                    }
+                    console.log("response=",response);
+                    return response.json()
+                })
+                    .catch(error => {
+                        Swal.fire('메일 전송 실패', '인증메일 전송에 실패했어요 :*(. 다시 시도해주세요.' ,'error')
+                    })
+        }, allowOutsideClick: () => !Swal.isLoading()
+        }).then((result)=> {
+            if(result.dismiss === Swal.DismissReason.timer){
+                Swal.fire({
+                    icon:'success'
+                    ,title:'메일 전송 완료!!'
+                    ,text : '인증 메일이 전송되었습니다! 메일을 확인해주세요'
+                    ,showConfirmButton : false
+                    ,timer : 2000
+                })
+            }
+        });
+
+    }
+
+
+</script>
+
+</html>

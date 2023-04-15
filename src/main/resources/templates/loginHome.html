@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 폼</title>
+    <link th:href="@{/css/errors.css}"   href="../static/css/errors.css" rel="stylesheet">
+    <style>
+        .login-btn {
+            padding: 30%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<section class="container">
+    <h1>Welcome!</h1>
+    <form id="loginForm" th:action="@{/login}" th:object="${loginForm}" method="post">
+        <table>
+            <tr>
+                <th><label for="loginId">ID</label></th>
+                <td>
+                    <input type="text" th:field="*{loginId}" th:errorClass="field-error" id="loginId" placeholder="ID를 입력하세요">
+                    <div class="field-error" th:errors="*{loginId}"></div>
+                </td>
+                <td rowspan="2">
+                    <button class='login-btn' type="submit" >LOGIN</button>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="password">PW</label></th>
+                <td>
+                    <input type="password" id="password" th:field="*{password}" th:errorclass="field-error">
+                    <div class="field-error" th:errors="*{password}"></div>
+                </td>
+
+            </tr>
+        </table>
+        <div class="join-container">
+            <a th:href="@{/join}" th:text="회원가입"></a>
+            <!--<a href="javascript:void(0)" th:text="회원가입" onclick="checkMail()"></a>-->
+        </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"th:text="${err}">전체 오류 메시지</p>
+        </div>
+    </form>
+<!--    <div id="social_login">
+        <button id="kakao_login_btn">카카오 로그인</button>
+        <button id="google_login_btn">구글 로그인</button>
+    </div>-->
+</section>
+</body>
+<!--<script >
+    function join(email){
+        Swal.fire({
+            title: '인증 메일 전송'
+            , text: '인즈 메일을 전송중입니다!'
+            , showLoaderOnConfirm: true
+            , showCancelButton:true
+            , preConfirm: () => {
+                return fetch(`/auth/email/${email}`,{
+                    method: 'POST'
+                    , body: ''
+                    , headers: {
+                        'Content-Type' : 'text/xml'
+                    }
+                }).then(response=>{
+                        if(!response.ok){
+                            throw new Error(response.statusText)
+                        }
+                        return response.json();
+                    }).catch(error=> {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    })
+            }, allowOutsideClick: () => !Swal.isLoading()
+        }).then((result)=>{
+            if(result.isConfirmed){
+                Swal.fire({
+                    title: `${result.value.memberId}`
+                    , text: '메일 전송 완료!'
+                    , icon: 'success'
+                }).then(() => {
+                    Swal.fire('')
+                })
+
+
+            }
+
+        });
+    }
+    async function checkMail() {
+        const {value: email}
+            = await Swal.fire({
+            title: '회원가입 폼'
+            , input: 'email'
+            , inputLabel: 'email을 입력해 주세요!'
+            , inputPlaceHolder: 'ex) email@galchung.com'
+            , confirmButtonText: '확인'
+            , validationMessage: '올바른 형식이 아니네요 :*( 주소를 확인해주세요!'
+        })
+
+        if(email){
+            join(email)
+        }
+    }
+</script>-->
+</html>

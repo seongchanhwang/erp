@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<!--header-->
+<header th:replace="~{/template/fragment/header :: logoutHeader}"></header>
+<h1>MY HOME</h1>
+<ul>
+    <li th:if="${session.loginMember.getPermission().name().equals('LEADER')
+    || session.loginMember.getPermission().name().equals('ADMIN')}">셀보고</li>
+    <li><a th:href="@{/seulgalsang}">슬갈생</a></li>
+</ul>
+
+</body>
+</html>

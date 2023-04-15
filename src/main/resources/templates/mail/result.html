@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이메일 인증</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <!-- 글로벌 에러 -->
+
+    <th:block th:if="${errorMsg == null || errorMsg == '' }">
+        <h2 th:if="${expired}" th:text="인증시간 만료"> </h2>
+        <h2 th:unless="${expired}" th:text="인증 성공!"> </h2>
+        <span th:text="|인증시간이 만료되어 인증에 실패했어요 :*( 처음부터 다시 진행해주세요!|"></span>
+    </th:block>
+    <th:block th:unless="${expired == false }">
+        <h2>인증 실패!</h2>
+        <p th:text="인증 도중 오류가 발생했습니다 관리자에게 문의해주세요"></p>
+    </th:block>
+
+
+</body>
+<script th:inline="javascript">
+d
+    Swal.fire({
+
+        s
+
+
+    });
+
+
+
+
+    window.close();
+
+
+</script>
+</html>

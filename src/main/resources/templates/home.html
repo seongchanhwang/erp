@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<h1> Welcome! </h1>
+<section>
+    <url>
+        <li><a th:href="@{/login}" th:text="로그인"></a></li>
+        <li><a th:href="@{/join}" th:text="회원가입"></a></li>
+    </url>
+</section>
+
+</body>
+</html>

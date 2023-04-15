@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="common-layout(title, body)">
+<head>
+  <meta charset="UTF-8">
+  <title th:replace="${title}">타이틀</title>
+  <link th:href="@{/css/errors.css}"  href="../../static/css/errors.css" rel="stylesheet">
+</head>
+<body th:replace="${body}">
+
+</body>
+</html>
