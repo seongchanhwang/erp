@@ -15,13 +15,10 @@ public class EmailConfig {
 
     @Value("${mail.smtp.port}")
     private int port;
-
     @Value("${mail.smtp.socketFactory.port}")
     private int socketPort;
-
     @Value("${mail.smtp.auth}")
     private boolean auth;
-
     @Value("${mail.smtp.starttls.enable}")
     private boolean starttls;
     @Value("${mail.smtp.starttls.required}")

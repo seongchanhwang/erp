@@ -21,8 +21,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         String uuid = UUID.randomUUID().toString();
 
         request.setAttribute(LOG_ID,uuid);
-
-
         if(handler instanceof HandlerMethod){
             HandlerMethod hm = (HandlerMethod) handler; // 호출한 컨트롤러의 모든 정보
         }
@@ -30,9 +28,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         log.info("REQUEST[{}][{}][{}]",uuid, requestURI, handler);
 
         return true ;
-
-
-
     }
 
     @Override

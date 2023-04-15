@@ -54,7 +54,6 @@ public class LoginController {
 
         // [회원 정보 검사]
         if(loginMember==null){
-            /* MEMBER = NULL : 글로벌 에러 */
             bindingResult.reject("loginFail");
             mv.setViewName("loginHome");
             return mv;
