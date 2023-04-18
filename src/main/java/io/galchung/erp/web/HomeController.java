@@ -28,7 +28,7 @@ public class HomeController {
             @SessionAttribute(name=SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
                              ModelAndView mv){
 
-        log.info("loginMember session ={}",loginMember);
+        log.info("loginMember session = {}",loginMember);
 
         if(loginMember == null ){
             mv.setViewName("loginHome");
@@ -38,19 +38,5 @@ public class HomeController {
         mv.setViewName("main");
         return mv;
     }
-    @GetMapping("/main")
-    public ModelAndView main(@ModelAttribute(name = "loginForm") LoginForm loginForm,
-            @SessionAttribute(name=SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
-                             ModelAndView mv){
 
-        log.info("loginMember session ={}",loginMember);
-
-        if(loginMember == null ){
-            mv.setViewName("loginHome");
-            return mv;
-        }
-
-        mv.setViewName("main");
-        return mv;
-    }
 }

@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +22,12 @@ public class LoginController {
     private final LoginService loginService;
 
 
+    @GetMapping("/login")
+    public String loginForm(@ModelAttribute LoginForm loginForm){
+        return "/loginHome";
+    }
+
+
     /**
      * Member Login
      *
@@ -34,6 +37,7 @@ public class LoginController {
      * @param mv
      * @return
      */
+    @ResponseBody
     @PostMapping("/login")
     public ModelAndView login(@Valid @ModelAttribute LoginForm loginForm,
                               BindingResult bindingResult,
@@ -63,8 +67,8 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
 
+        mv.addObject("member",loginMember);
         mv.setViewName("redirect:"+redirectURL);
-
         return mv;
     }
 
@@ -83,7 +87,7 @@ public class LoginController {
             session.invalidate();
         }
 
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:/login");
         return mv;
     }
 
