@@ -10,8 +10,13 @@ const Login = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(id, pw)
-		axios.post('/login')
-			.then((response) => console.log(response))
+		axios.post('/api/login', {
+			params: {
+				loginId: id,
+				password : pw
+			}
+		})
+		.then((response) => console.log(response))
 		.catch((error) => console.log(error))
 	}
 	useEffect(() => {
