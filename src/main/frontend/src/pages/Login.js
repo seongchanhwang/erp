@@ -7,17 +7,20 @@ const Login = () => {
 	const [load, setLoad] = useState(false);
 	const [id, setId] = useState('');
 	const [pw, setPw] = useState('');
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(id, pw)
-		axios.post('/api/login', {
+
+		console.log("id=",id);
+		console.log("pw=",pw);
+		await axios.post('/api/login', {
+			withCredentials : true,
 			params: {
 				loginId: id,
 				password : pw
 			}
 		})
-		.then((response) => console.log(response))
-		.catch((error) => console.log(error))
+			.then((response) => console.log(response))
+			.catch((error) => console.log(error))
 	}
 	useEffect(() => {
 		setLoad(true);
