@@ -1,15 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
-  const [message, setMessage] = useState("");
-  useEffect(() => {
-    axios
-      .get("/api/hello")
-      .then((response) => setMessage(response.data))
-      .catch((error) => console.log(error));
-  }, []);
-  return <div>123 {message}</div>;
+  return (
+    <div id="wrap">
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

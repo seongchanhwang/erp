@@ -1,0 +1,22 @@
+.flex-box {
+  display: flex;
+  &.align-cnt {
+    align-items: center;
+  }
+  &.justify-cnt {
+    justify-content: center;
+  }
+
+  &.dir-col {
+    flex-direction: column;
+  }
+}
+
+button,
+input,
+select {
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 0 10px;
+}
