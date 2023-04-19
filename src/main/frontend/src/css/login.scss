@@ -1,0 +1,108 @@
+#login-wrap {
+  height: 100vh;
+  width: 100vw;
+  color: #fff;
+  padding: 0 40px;
+  .txt-box {
+    h2 {
+      font-size: 3.25em;
+      margin: 0 0 0.55em 0;
+    }
+    p {
+      font-size: 1.35em;
+      line-height: 1.65em;
+      opacity: 0.5;
+      font-weight: 300;
+    }
+  }
+
+  .input-box {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 288px;
+    button,
+    input {
+      width: 100%;
+      font-size: 1.4rem;
+    }
+    input {
+      background: none;
+      color: #fff;
+      &::placeholder {
+        color: #fff;
+        opacity: 0.4;
+      }
+    }
+    > div {
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+    button {
+      background: #1cb495;
+      color: #fff;
+      border: none;
+      font-weight: 700;
+    }
+  }
+
+  .bg {
+    position: fixed;
+    background: #000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    &::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0.5;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 900;
+    }
+    article {
+      opacity: 0;
+      width: 120%;
+      height: 100%;
+      transition: opacity 3s ease;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      @for $i from 1 through 3 {
+        &.item#{$i} {
+          background-image: url(../img/bg#{$i}.jpg);
+        }
+      }
+
+      background-position: center center;
+      background-size: cover;
+
+      animation: bg 29.25s linear infinite;
+      &.active {
+        z-index: 2;
+      }
+    }
+
+    &.active {
+      .active {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@keyframes bg {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-25%);
+  }
+}
