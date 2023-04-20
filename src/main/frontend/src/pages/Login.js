@@ -14,29 +14,21 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			console.log(id)
-			console.log(pw)
-			setPost({ ...post, loginId: id, password: pw })
+			const data = {
+				loginId: id,
+				password: pw,
+			};
 
-//			var formData = new FormData();
-//			formData.append("loginId", id);
-//			formData.append("password", pw);
-//			const response = await axios({
-//				method: 'post',
-//				url: '/api/login',
-//				data: formData,
-//			})
-			 const response = await axios.post('/api/login', JSON.stringify({ post }), {
-			 	headers: {
-			 		"Content-Type": "application/json",
-			 	}
-			 });
+			const response = await axios.post("/api/login", JSON.stringify(data), {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 			console.log(response);
 		} catch (error) {
 			console.error(error);
 		}
-
-	}
+	};
 	useEffect(() => {
 		setLoad(true);
 	}, []);
