@@ -7,20 +7,35 @@ const Login = () => {
 	const [load, setLoad] = useState(false);
 	const [id, setId] = useState('');
 	const [pw, setPw] = useState('');
+	const [post, setPost] = useState({
+		loginId: "",
+		password: ""
+	})
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		try {
+			console.log(id)
+			console.log(pw)
+			setPost({ ...post, loginId: id, password: pw })
 
-		console.log("id=",id);
-		console.log("pw=",pw);
-		await axios.post('/api/login', {
-			withCredentials : true,
-			params: {
-				loginId: id,
-				password : pw
-			}
-		})
-			.then((response) => console.log(response))
-			.catch((error) => console.log(error))
+//			var formData = new FormData();
+//			formData.append("loginId", id);
+//			formData.append("password", pw);
+//			const response = await axios({
+//				method: 'post',
+//				url: '/api/login',
+//				data: formData,
+//			})
+			 const response = await axios.post('/api/login', JSON.stringify({ post }), {
+			 	headers: {
+			 		"Content-Type": "application/json",
+			 	}
+			 });
+			console.log(response);
+		} catch (error) {
+			console.error(error);
+		}
+
 	}
 	useEffect(() => {
 		setLoad(true);
@@ -42,11 +57,10 @@ const Login = () => {
 				</div>
 				<form onSubmit={handleSubmit}>
 					<div className="input-box">
-						<div>
-							<input type="text" placeholder="이메일을 입력해주세요" value={id} onChange={e => setId(e.target.value)} ></input>
-						</div>
+						<div><input name="loginId " type="text" placeholder="이메일을 입력해주세요" value={id} onChange={e => setId(e.target.value)} ></input></div>
 						<div>
 							<input
+								name="Password"
 								type="password"
 								placeholder="비밀번호를 입력해주세요"
 								value={pw}
