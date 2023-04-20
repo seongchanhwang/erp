@@ -46,7 +46,11 @@ public class LoginController {
                               HttpServletRequest request,
                               @RequestParam(defaultValue = "/") String redirectURL
                               //ModelAndView mv
+
     ){
+        System.out.println("여기--------------");
+        System.out.println(loginForm);
+        System.out.println("여기--------------");
         // [유효성 검사]
         if(bindingResult.hasErrors()){
             log.info("errors={}",bindingResult);
