@@ -31,8 +31,11 @@ public class LoginController {
 
 
     /**
-     * Member Login
+     * Member Login By ModelAttribute
+     * BindingResult 와 @ModelAttribute 를 이용한 로그인 컨트롤러
+     * bindingResult 로 오류를 바인딩하여 view 로 넘긴다.
      *
+     * @deprecated
      * @param loginForm
      * @param bindingResult
      * @param request
@@ -40,17 +43,16 @@ public class LoginController {
      * @return
      */
     // @ResponseBody
-    @PostMapping("/api/login")
-    public ResponseEntity<Member> login(@Valid @ModelAttribute LoginForm loginForm,
+    // @PostMapping("/api/login")
+    public ResponseEntity<Member> loginV1(@Valid @ModelAttribute LoginForm loginForm,
                               BindingResult bindingResult,
                               HttpServletRequest request,
                               @RequestParam(defaultValue = "/") String redirectURL
-                              //ModelAndView mv
 
     ){
-        System.out.println("여기--------------");
-        System.out.println(loginForm);
-        System.out.println("여기--------------");
+
+        log.info("loginForm={}" ,loginForm);
+
         // [유효성 검사]
         if(bindingResult.hasErrors()){
             log.info("errors={}",bindingResult);
@@ -76,8 +78,43 @@ public class LoginController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    /**
+     * Member Login (RequestBody)
+     * JSON 로그인 요청 처리
+     *
+     * @param loginForm
+     * @param request
+     * @param redirectURL
+     * @return
+     */
+    @PostMapping("/api/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm,
+                                        HttpServletRequest request,
+                                        @RequestParam(defaultValue = "/") String redirectURL  ){
+
+        log.info("loginForm = {}", loginForm);
+
+        // [멤버 로그인]
+        Member loginMember = loginService.login(loginForm.getLoginId(),loginForm.getPassword());
+        log.info("loginMember = {}",loginMember);
+
+        // [회원 정보 검사]
+        if(loginMember==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // [세션 등록]
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     /**
      * Member Logout
+     *
+     * /login 페이지로 리다이렉트
      * @param request
      * @param mv
      * @return
@@ -91,7 +128,7 @@ public class LoginController {
             session.invalidate();
         }
 
-        mv.setViewName("redirect:/login");
+        mv.setViewName("redirect:/api/login");
         return mv;
     }
 
