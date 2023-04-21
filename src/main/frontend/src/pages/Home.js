@@ -7,11 +7,21 @@ const Home = () => {
   return (
     <div>
       메인
-      {!auth && (
-        <p>
-          <Link to={"/login"}>로그인</Link>
-        </p>
-      )}
+      <p>
+        {auth === true ? (
+          <Link to={"/"}>로그아웃</Link>
+        ) : (
+          <>
+            <p>
+              <Link to={"/member/login"}>로그인</Link>
+            </p>
+            <p>
+              <Link to={"/member/join"}>회원가입</Link>
+            </p>
+          </>
+        )}
+      </p>
+      <p></p>
       <p>
         <Link to={"/board"}>게시판</Link>
       </p>
