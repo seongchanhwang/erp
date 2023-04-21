@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/login.scss";
 import Background from "../components/login/Background";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginAuthAction } from "../redux/actions/loginActions";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [load, setLoad] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const data = {
-        loginId: id,
-        password: pw,
-      };
-
-      const response = await axios.post("/api/login", JSON.stringify(data), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    const data = {
+      loginId: id,
+      password: pw,
+    };
+    dispatch(loginAuthAction.getLoginAuth(data)).then(() => {
+      navigate("/");
+    });
   };
 
   useEffect(() => {

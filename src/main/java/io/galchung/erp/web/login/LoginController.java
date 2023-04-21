@@ -88,7 +88,7 @@ public class LoginController {
      * @param redirectURL
      * @return
      */
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm,
                                         HttpServletRequest request,
                                         @RequestParam(defaultValue = "/") String redirectURL  ){
