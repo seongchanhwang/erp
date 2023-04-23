@@ -6,8 +6,6 @@ import Board from "./pages/Board";
 import PrivateRoute from "./router/PrivateRoute";
 import Member from "./pages/Member";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import LoginForm from "./components/member/LoginForm";
-import JoinForm from "./components/member/JoinForm";
 
 function App() {
   const location = useLocation();

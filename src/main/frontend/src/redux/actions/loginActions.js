@@ -20,6 +20,7 @@ function getLoginAuth(data) {
         );
       }
     } catch (error) {
+      alert("계정을 확인해주세요");
       console.log("에러");
       console.log(error);
     }

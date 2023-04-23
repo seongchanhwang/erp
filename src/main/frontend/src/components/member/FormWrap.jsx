@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { loginAuthAction } from "../../redux/actions/loginActions";
 
 const FormWrap = ({ page }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      loginId: id,
-      password: pw,
-    };
-
-    dispatch(loginAuthAction.getLoginAuth(data)).then(() => {
-      navigate("/");
-    });
+    if (page === "login") {
+      const data = {
+        loginId: id,
+        password: pw,
+      };
+      dispatch(loginAuthAction.getLoginAuth(data)).then();
+    }
   };
   return (
     <>
