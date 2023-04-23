@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import IntroMsg from "./IntroWrap";
+import IntroWrap from "./IntroWrap";
 import FormWrap from "./FormWrap";
 
-const LoginForm = () => {
+const LoginForm = ({ page }) => {
   return (
     <>
-      <IntroMsg />
-      <FormWrap />
+      <IntroWrap page={page} />
+      <FormWrap page={page} />
     </>
   );
 };

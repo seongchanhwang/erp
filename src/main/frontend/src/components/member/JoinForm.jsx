@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import IntroMsg from "./IntroWrap";
+import IntroWrap from "./IntroWrap";
 import FormWrap from "./FormWrap";
-
-const JoinForm = () => {
+const JoinForm = ({ page }) => {
   return (
     <>
-      <FormWrap />
-      <IntroMsg />
+      <FormWrap page={page} />
+      <IntroWrap page={page} />
     </>
   );
 };

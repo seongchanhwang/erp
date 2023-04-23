@@ -4,8 +4,6 @@ import { loginAuthActions } from "../reducers/loginAuthReducer";
 function getLoginAuth(data) {
   return async (dispatch) => {
     try {
-      console.log("-==-------------------");
-      console.log(data);
       const response = await axios.post("/api/login", JSON.stringify(data), {
         withCredentials: false,
         headers: {
