@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { loginAuthAction } from "../../redux/actions/loginActions";
 
-const FormWrap = () => {
-  const { page } = useParams();
+const FormWrap = ({ page }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const dispatch = useDispatch();

@@ -5,23 +5,23 @@ import LoginForm from "../components/member/LoginForm";
 import { useSelector } from "react-redux";
 import JoinForm from "../components/member/JoinForm";
 
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Member = () => {
-  const [load, setLoad] = useState(false);
-  const { page } = useParams();
-  // test
+  const [lastPath, setLastPath] = useState("");
+  const location = useLocation();
+  const locationPath = location.pathname;
+  const locationPathArr = locationPath.split("/");
   useEffect(() => {
-    setLoad(true);
+    setLastPath(locationPathArr[locationPathArr.length - 1]);
   }, []);
-
   return (
     <>
       <div id="member-wrap" className="flex-box justify-cnt dir-col">
         <section>
           <div className="content flex-box ">
-            {page === "login" && <LoginForm />}
-            {page === "join" && <JoinForm />}
+            {lastPath === "login" && <LoginForm page={lastPath} />}
+            {lastPath === "join" && <JoinForm page={lastPath} />}
           </div>
         </section>
       </div>

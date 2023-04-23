@@ -13,7 +13,7 @@ const Home = () => {
         ) : (
           <>
             <p>
-              <Link to={"/member/login"}>로그인</Link>
+              <Link to={"/login"}>로그인</Link>
             </p>
             <p>
               <Link to={"/member/join"}>회원가입</Link>
