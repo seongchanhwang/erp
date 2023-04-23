@@ -9,6 +9,10 @@
 		justify-content: center;
 	}
 
+	&.justify-bet {
+		justify-content: space-between;
+	}
+
 	&.dir-col {
 		flex-direction: column;
 	}
@@ -21,8 +25,15 @@ button {
 button,
 input,
 select {
+	outline: none;
 	height: 50px;
-	border-radius: 4px;
 	border: 1px solid #ddd;
 	padding: 0 10px;
+}
+
+.hidden {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
 }
