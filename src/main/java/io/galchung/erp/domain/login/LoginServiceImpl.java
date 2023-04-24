@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -23,6 +24,6 @@ public class LoginServiceImpl implements LoginService {
                 .filter(m-> m.getPassword().equals(password))
                 .stream()
                 .findAny()
-                .orElse(null);
+                .orElseThrow(NoSuchElementException::new);
     }
 }

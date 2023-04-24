@@ -2,12 +2,13 @@ package io.galchung.erp.web.login;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
 public class LoginForm {
 
-    @NotBlank(message = "ID")
+    @NotBlank
     private String loginId;
 
     @NotBlank

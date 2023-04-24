@@ -1,6 +1,7 @@
 package io.galchung.erp.web;
 
 import io.galchung.erp.domain.member.Member;
+import io.galchung.erp.web.login.Login;
 import io.galchung.erp.web.login.LoginForm;
 import io.galchung.erp.web.session.SessionConst;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +25,7 @@ public class HomeController {
      * @return
      */
     @GetMapping("/")
-    public ModelAndView home(@ModelAttribute(name = "loginForm") LoginForm loginForm,
-            @SessionAttribute(name=SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
-                             ModelAndView mv){
-
+    public ModelAndView home(@ModelAttribute(name = "loginForm") LoginForm loginForm, @Login Member loginMember, ModelAndView mv){
         log.info("loginMember session = {}",loginMember);
 
         if(loginMember == null ){

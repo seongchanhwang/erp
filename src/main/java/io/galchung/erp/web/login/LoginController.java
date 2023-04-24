@@ -6,8 +6,10 @@ import io.galchung.erp.web.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -80,19 +82,20 @@ public class LoginController {
 
 
     /**
-     * Member Login (RequestBody)
-     * JSON 로그인 요청 처리
-     *
+     * API 로그인
      * @param loginForm
      * @param request
-     * @param redirectURL
      * @return
      */
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm,
-                                        HttpServletRequest request,
-                                        @RequestParam(defaultValue = "/") String redirectURL  ){
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm, BindingResult bindingResult,
+                                        HttpServletRequest request
+                                        //,@RequestParam(defaultValue = "/") String redirectURL
+    ) throws BindException {
 
+        if(bindingResult.hasErrors()){
+            throw new BindException(bindingResult);
+        }
         log.info("loginForm = {}", loginForm);
 
         // [멤버 로그인]
@@ -108,7 +111,7 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().body("객체 검증 성공");
     }
 
     /**
