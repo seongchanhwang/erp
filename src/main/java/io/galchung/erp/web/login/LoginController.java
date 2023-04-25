@@ -104,7 +104,9 @@ public class LoginController {
 
         // [회원 정보 검사]
         if(loginMember==null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            log.info("target={}",bindingResult.getTarget());
+            bindingResult.reject("loginFail","로그인 실패, 다시 시도해주세요");
+            throw new BindException(bindingResult);
         }
 
         // [세션 등록]

@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -33,15 +35,29 @@ public class ApiControllerAdvice {
      * @param e
      * @return
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public ResponseEntity<List<ErrorResult>> loginHandler(BindException e){
-        e.getFieldErrors();
+    public List<ErrorResult> loginHandler(BindException e){
 
-        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        log.error("[loginFail] ex ",e );
 
-        List<ErrorResult> collect = fieldErrors.stream().map(error -> new ErrorResult(error.getCode(), messageSource.getMessage(error, Locale.KOREA), "")).collect(Collectors.toList());
+        List<ErrorResult> collect = null;
 
-        return new ResponseEntity<>(collect, HttpStatus.BAD_REQUEST);
+        if (e.hasFieldErrors()){
+            // Field Error 처리
+            List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+            collect = fieldErrors.stream()
+                    .map(error -> new ErrorResult(error.getCode(), messageSource.getMessage(error, Locale.KOREA), ""))
+                    .collect(Collectors.toList());
+
+        } else if (e.hasGlobalErrors()){
+            // Object Error 처리 
+            List<ObjectError> globalErrors = e.getBindingResult().getGlobalErrors();
+            collect = globalErrors.stream().map(error -> new ErrorResult(error.getCode(), messageSource.getMessage(error, Locale.KOREA), ""))
+                    .collect(Collectors.toList());
+        }
+
+        return collect;
     }
 
 }
