@@ -3,12 +3,10 @@ package io.galchung.erp.web;
 import io.galchung.erp.domain.member.Member;
 import io.galchung.erp.web.login.Login;
 import io.galchung.erp.web.login.LoginForm;
-import io.galchung.erp.web.session.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
@@ -29,7 +27,7 @@ public class HomeController {
         log.info("loginMember session = {}",loginMember);
 
         if(loginMember == null ){
-            mv.setViewName("loginHome");
+            mv.setViewName("loginHome_back");
             return mv;
         }
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JOIN FORM</title>
+    <!--<link th:href="@{/css/errors.css}"  href="../../static/css/errors.css" rel="stylesheet">-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<h1 th:text="|JOIN ME!|">회원가입 폼</h1>
+<section>
+    <!--회원가입 폼-->
+    <form th:action th:object="${joinForm}" id="joinForm" name="joinForm" method="post">
+        <table>
+            <tr>
+                <th><label for="memberId">ID</label></th>
+                <td>
+                    <input id="memberId" type="text" name="memberId" th:field="*{memberId}" placeholder="E-mail @포함 ">
+                    <a href="javascript:sendAuthMail()">인증 발송</a>
+                    <div th:errors="*{memberId}" th:errorclass="field-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="password">PW</label></th>
+                <td>
+                    <input id="password" type="password" name="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요.">
+                    <div th:errors="*{password}" th:errorclass="field-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="name">NAME</label></th>
+                <td>
+                    <input id="name" type="text" name="name" th:field="*{name}">
+                    <div th:errors="*{name}" th:errorclass="field-error"></div>
+                </td>
+            </tr>
+        </table>
+        <div id="btn-box">
+            <button class="join-btn" type="button" onclick="join();">회원가입</button>
+        </div>
+
+        <!--글로벌 에러-->
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">
+                글로벌 에러
+            </p>
+        </div>
+    </form>
+</section>
+</body>
+<script type="text/javascript">
+
+    function join(){
+
+        const form = new FormData (document.querySelector('#joinForm'))
+        let jsonObj = {};
+        form.forEach( (value,key)=> {
+            jsonObj[key]=value??'';
+        })
+        console.log("obj=",jsonObj);
+
+
+        $.ajax({
+            url:"/join"
+            , method: "POST"
+            , contentType : "application/json"
+            , dataType: "JSON"
+            , data : JSON.stringify(jsonObj)
+            , success: function (response){
+                alert(response);
+                console.log(response);
+            }
+            , error: function (req, error,status){
+                console.log("req=",req);
+                console.log("error=",error);
+                console.log("status=",status);
+            }
+
+
+        });
+
+    }
+
+
+
+
+
+
+</script>
+
+</html>

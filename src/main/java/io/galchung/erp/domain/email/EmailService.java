@@ -21,4 +21,7 @@ public interface EmailService {
     void sendAuthMail(EmailToken emailToken);
 
 
+    void send(MimeMessage message);
+
+    MimeMessage createMessage();
 }

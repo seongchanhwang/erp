@@ -41,7 +41,18 @@ public class EmailServiceImpl implements EmailService {
     public void sendAuthMail(EmailToken emailToken) {
         MimeMessage message = this.createMessage(emailToken);
         javaMailSender.send(message);
+    }
 
+    @Override
+    public void send(MimeMessage message) {
+
+    }
+
+    @Override
+    public MimeMessage createMessage() {
+
+
+        return null;
     }
 
     private MimeMessage createMessage(EmailToken emailToken){
@@ -54,20 +65,19 @@ public class EmailServiceImpl implements EmailService {
 
             Context context = new Context();
             HashMap<String,Object> emailValues = new HashMap<>();
-            emailValues.put("name","갈현교회 청년부");
-            emailValues.put("token",emailToken.getId());
+            emailValues.put("name","MARU-ERP");
+            // emailValues.put("token",emailToken.getId());
             context.setVariables(emailValues);
 
             String html = templateEngine.process("mail/index", context);
             mailHelper.setText(html ,true);
 
             //이미지 삽입
-            mailHelper.addInline("main-img", new ClassPathResource("static/images/mail/mail-main.jpeg"));
+            /*mailHelper.addInline("main-img", new ClassPathResource("static/images/mail/mail-main.jpeg"));
             mailHelper.addInline("erp-logo", new ClassPathResource("static/images/logo/erp_linkedin_logo.png"));
             mailHelper.addInline("youtube", new ClassPathResource("static/images/sns/youtube.png"));
             mailHelper.addInline("instagram", new ClassPathResource("static/images/sns/instagram.png"));
-            mailHelper.addInline("galchung", new ClassPathResource("static/images/sns/galchung.png"));
-            mailHelper.setFrom(fromEmail);
+            mailHelper.addInline("galchung", new ClassPathResource("static/images/sns/galchung.png"));*/
             return message;
 
         } catch (MessagingException e) {

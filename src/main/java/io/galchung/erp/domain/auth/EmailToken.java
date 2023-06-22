@@ -7,8 +7,8 @@ import java.util.UUID;
 
 /**
  * 이메일 인증 토큰
- *
  * 만료 시간 5분
+ *
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

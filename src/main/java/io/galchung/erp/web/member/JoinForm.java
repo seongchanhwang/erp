@@ -7,8 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class JoinForm {
-    @NotBlank(message = "ID")
-    @Email
+    @NotBlank
     private String memberId;
     @NotBlank
     private String name;

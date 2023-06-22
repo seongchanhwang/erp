@@ -93,7 +93,7 @@ const FormWrap = ({ page }) => {
                 </div>
               </div>
               <div className="link-btn">
-                {page === "login" && <button type="submit">SIGN IN</button>}
+                {page === "login" && <button type="submit">로그인</button>}
                 {page === "join" && (
                   <button type="submit" className="sign-in">
                     SIGN UP

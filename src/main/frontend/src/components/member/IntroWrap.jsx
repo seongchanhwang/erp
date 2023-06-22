@@ -25,7 +25,7 @@ const IntroMsg = ({ page }) => {
           </div>
           <div className="link-btn">
             {page === "login" && <Link to={"/member/join"}>SIGN UP</Link>}
-            {page === "join" && <Link to={"/login"}>SIGN IN</Link>}
+            {page === "join" && <Link to={"/login"}>로그인</Link>}
           </div>
         </div>
       </article>

@@ -18,8 +18,6 @@ import javax.servlet.Filter;
  *
  * @interceptor 로그인 체크, 로그 인터셉터
  *
- *
- *
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -34,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                         .order(2)
                         .addPathPatterns("/**")
-                        .excludePathPatterns("/error","/login","/logout","/join/**","/css/**","/images/**", "/js/**","/*.ico");
+                        .excludePathPatterns("/auth/**", "/error","/login","/logout","/join/**","/css/**","/images/**", "/js/**","/*.ico");
     }
 
     //@Bean

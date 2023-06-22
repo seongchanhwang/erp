@@ -25,8 +25,8 @@ public class EmailController {
     private final EmailTokenService emailTokenService ;
     private final EmailService emailService;
 
-    @PostMapping("/{memberId}")
-    public String sendMail(@PathVariable("memberId") String memberId ){
+    /*@PostMapping("/{memberId}")
+    public ResponseEntity sendMail(@PathVariable("memberId") String memberId ) {
         log.info("email={}",memberId);
 
         // [토큰 생성]
@@ -34,26 +34,28 @@ public class EmailController {
         log.info("tokenId={}",emailToken.getId());
 
         // [인증 메일 전송]
-        emailService.sendAuthMail(emailToken);
+        // emailService.sendAuthMail(emailToken);
 
-        return emailToken.getId();
-    }
+
+        emailService.sendMail();
+        return ResponseEntity.ok().body(true);
+    }*/
 
     @GetMapping("/auth/{token}")
-    public ModelAndView authUser(@PathVariable("token") String tokenId, ModelAndView mv){
+    public ResponseEntity authUser(@PathVariable("token") String tokenId, ModelAndView mv){
          mv.setViewName("redirect:/email/result");
         log.info("authToken={}",tokenId);
 
         // 토큰 검증
         try{
             EmailToken token = emailTokenService.validate(tokenId);
-            mv.addObject("expired",token.expired);
-            return mv;
+            return ResponseEntity.ok().body(token.expired);
 
         } catch (RuntimeException e){
             log.error("error={}",e);
             mv.addObject("errorMsg ","토큰 인증중 오류 발생" );
-            return mv ;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false) ;
+
         }
 
 

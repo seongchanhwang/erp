@@ -242,7 +242,7 @@
 
                                                 <h1 class="v-text-align v-font-size"
                                                     style="margin: 0px; line-height: 130%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Playfair Display',serif; font-size: 40px;">
-                                                    <span th:text="|#{group} #{department}|"></span> <br/>
+                                                    <span th:text="|#{slogan} #{serviceName}|"></span> <br/>
                                                 </h1>
 
                                             </td>
@@ -327,7 +327,7 @@
                                                     <p style="font-size: 14px; line-height: 160%; text-align: center;">
                                                         <strong>
                                                             <span style="font-family: 'Playfair Display', serif; font-size: 16px; line-height: 25.6px;">
-                                                            <span style="line-height: 25.6px; font-size: 16px;" th:text="|${name} ERP에 오신것을 환영합니다!|">
+                                                            <span style="line-height: 25.6px; font-size: 16px;" th:text="|#{serviceName}에 오신것을 환영합니다!|">
                                                                 ERP에 오신것을 환영합니다!
                                                             </span></span>
                                                         </strong>
@@ -372,13 +372,14 @@
                                                                     <center style="color:#FFFFFF;font-family:'Raleway',sans-serif;">
                                                     <![endif]-->
 
-                                                    <a th:href="@{http://localhost:8080/email/auth/{token}(token=${token})}" target="_blank"
+                                                    <span style="display:block;padding:10px 20px;line-height:120%;" th:text="${authKey}"></span>
+                                                    <!--<a th:href="@{http://localhost:8080/email/auth/{token}(token=${token})}" target="_blank"
                                                        class="v-size-width"
                                                        style="box-sizing: border-box;display: inline-block;font-family:'Raleway',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #001847; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:28%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
                                                         <span style="display:block;padding:10px 20px;line-height:120%;">
                                                             인증버튼
                                                         </span>
-                                                    </a>
+                                                    </a>-->
                                                     <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->
                                                 </div>
 
